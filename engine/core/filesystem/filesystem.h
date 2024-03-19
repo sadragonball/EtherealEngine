@@ -9,6 +9,8 @@
 
 namespace fs
 {
+using namespace std::filesystem;
+using error_code = std::error_code;
 
 using protocols_t = std::unordered_map<std::string, std::string>;
 using byte_array_t = std::vector<std::uint8_t>;

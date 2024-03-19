@@ -1,8 +1,8 @@
-﻿cmake_minimum_required(VERSION 3.0)
+﻿cmake_minimum_required(VERSION 3.20)
 
-project (ethereal)
+project(ethereal)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
@@ -14,19 +14,19 @@ include(sanitizers_support)
 include(clang_tidy_support)
 include(ide_support)
 
-set( BUILD_SHARED_LIBS OFF CACHE BOOL "Build package with shared libraries." FORCE)
+set(BUILD_SHARED_LIBS OFF CACHE BOOL "Build package with shared libraries." FORCE)
 
 if(NOT BUILD_SHARED_LIBS)
-    add_definitions(-DETH_STATIC)
+	add_definitions(-DETH_STATIC)
 	add_definitions(-DETH_API_EXPORTS)
 else()
 	set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 	set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 endif()
+
 add_definitions(-DNOMINMAX)
 
-#enable_sanitizers("custom")
-
+# enable_sanitizers("custom")
 detect_platform()
 print_info()
 set_output_paths()

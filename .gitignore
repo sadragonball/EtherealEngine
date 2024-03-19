@@ -85,3 +85,4 @@ ipch/
 
 # User data
 editor_data/config/*.cfg
+.cache

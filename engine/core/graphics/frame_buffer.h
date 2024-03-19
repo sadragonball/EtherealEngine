@@ -15,6 +15,7 @@ struct fbo_attachment
     std::uint16_t mip = 0;
     /// Cubemap side or depth layer/slice.
     std::uint16_t layer = 0;
+    std::uint16_t num_layers = 1;
 };
 
 struct frame_buffer : public handle_impl<frame_buffer_handle>

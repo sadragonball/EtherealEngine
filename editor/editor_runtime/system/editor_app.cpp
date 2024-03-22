@@ -1,4 +1,4 @@
-#include "app.h"
+#include "editor_app.h"
 #include "../console/console_log.h"
 #include "../editing/editing_system.h"
 #include "../editing/picking_system.h"
@@ -238,7 +238,7 @@ void save_scene_as()
 }
 } // namespace
 
-void app::draw_menubar(render_window& window)
+void editor_app::draw_menubar(render_window& window)
 {
     auto& es = core::get_subsystem<editor::editing_system>();
     auto& pm = core::get_subsystem<editor::project_manager>();
@@ -361,7 +361,7 @@ void app::draw_menubar(render_window& window)
     }
 }
 
-void app::draw_toolbar()
+void editor_app::draw_toolbar()
 {
     auto& es = core::get_subsystem<editor::editing_system>();
     auto& icons = es.icons;
@@ -423,14 +423,14 @@ void app::draw_toolbar()
 
 //-----------------------------------------------------------------------------
 
-void app::setup(cmd_line::parser& parser)
+void editor_app::setup(cmd_line::parser& parser)
 {
     runtime::app::setup(parser);
 
-    runtime::on_frame_ui_render.connect(this, &editor::app::draw_docks);
+    runtime::on_frame_ui_render.connect(this, &editor_app::editor_app::draw_docks);
 }
 
-void app::start(cmd_line::parser& parser)
+void editor_app::start(cmd_line::parser& parser)
 {
     console_log_ = std::make_shared<console_log>();
 
@@ -450,7 +450,7 @@ void app::start(cmd_line::parser& parser)
     register_console_commands();
 }
 
-void app::create_docks()
+void editor_app::create_docks()
 {
     auto& rend = core::get_subsystem<runtime::renderer>();
     auto& main_window = rend.get_main_window();
@@ -485,7 +485,7 @@ void app::create_docks()
     docking.register_dock(std::move(style));
 }
 
-void app::register_console_commands()
+void editor_app::register_console_commands()
 {
     std::function<void()> log_version = []()
     {
@@ -494,14 +494,14 @@ void app::register_console_commands()
     console_log_->register_command("version", "Returns the current version of the Editor.", {}, {}, log_version);
 }
 
-void app::stop()
+void editor_app::stop()
 {
-    runtime::on_frame_ui_render.disconnect(this, &editor::app::draw_docks);
+    runtime::on_frame_ui_render.disconnect(this, &editor_app::editor_app::draw_docks);
 
     runtime::app::stop();
 }
 
-void app::draw_docks(delta_t dt)
+void editor_app::draw_docks(delta_t dt)
 {
     auto& gui = core::get_subsystem<gui_system>();
     auto& docking = core::get_subsystem<docking_system>();
@@ -537,13 +537,13 @@ void app::draw_docks(delta_t dt)
     }
 }
 
-void app::draw_header(render_window& window)
+void editor_app::draw_header(render_window& window)
 {
     draw_menubar(window);
     draw_toolbar();
 }
 
-void app::draw_dockspace(bool is_main, render_window& window, imguidock::dockspace& dockspace)
+void editor_app::draw_dockspace(bool is_main, render_window& window, imguidock::dockspace& dockspace)
 {
     float offset = 0.0f;
 
@@ -561,7 +561,7 @@ void app::draw_dockspace(bool is_main, render_window& window, imguidock::dockspa
     }
 }
 
-void app::draw_footer(render_window&, imguidock::dockspace& dockspace)
+void editor_app::draw_footer(render_window&, imguidock::dockspace& dockspace)
 {
     if(!console_log_)
         return;
@@ -615,7 +615,7 @@ void app::draw_footer(render_window&, imguidock::dockspace& dockspace)
     gui::EndTable();
 }
 
-void app::draw_start_page(render_window& window)
+void editor_app::draw_start_page(render_window& window)
 {
     auto& pm = core::get_subsystem<editor::project_manager>();
 
@@ -691,7 +691,7 @@ void app::draw_start_page(render_window& window)
     gui::PopFont();
 }
 
-void app::handle_drag_and_drop()
+void editor_app::handle_drag_and_drop()
 {
     auto& es = core::get_subsystem<editing_system>();
 

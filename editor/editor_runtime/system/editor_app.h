@@ -13,10 +13,10 @@ class render_window;
 
 namespace editor
 {
-class app : public runtime::app
+class editor_app : public runtime::app
 {
 public:
-    virtual ~app() = default;
+    virtual ~editor_app() = default;
 
     virtual void setup(cmd_line::parser& parser);
 

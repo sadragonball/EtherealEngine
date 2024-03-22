@@ -1,5 +1,5 @@
+#include "editor_runtime/system/editor_app.h"
 #include "meta/meta.h"
-#include "system/app.h"
 
 #include <core/filesystem/filesystem.h>
 
@@ -15,7 +15,7 @@ int main(int argc, char* argv[])
     fs::add_path_protocol("editor:", editor);
     fs::add_path_protocol("binary:", binary_path);
     fs::add_path_protocol("shader_include:", shader_include_path);
-    editor::app app;
+    editor::editor_app app;
     int return_code = app.run(argc, argv);
 
     return return_code;
